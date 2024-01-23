@@ -20,7 +20,7 @@ void insertion_sort_list(listint_t **list)
         return;
     }
 
-    sorted = NULL;  // Sorted part of the list
+    sorted = NULL;
     unsorted = *list;
 
     while (unsorted != NULL)
