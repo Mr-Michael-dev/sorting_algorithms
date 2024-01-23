@@ -16,7 +16,9 @@ void insertion_sort_list(listint_t **list)
 	listint_t *next;
 
     if (list == NULL || *list == NULL || (*list)->next == NULL)
+    {
         return;
+    }
 
     sorted = NULL;  // Sorted part of the list
     unsorted = *list;
@@ -31,7 +33,9 @@ void insertion_sort_list(listint_t **list)
             unsorted->prev = NULL;
 
             if (sorted != NULL)
+	    {
                 sorted->prev = unsorted;
+	    }
 
             sorted = unsorted;
         }
@@ -39,14 +43,18 @@ void insertion_sort_list(listint_t **list)
         {
             current = sorted;
 
-            while (current->next != NULL && current->next->n < unsorted->n)
+            while (current->next != NULL && current->next->n > unsorted->n)
+	    {
                 current = current->next;
+	    }
 
             unsorted->next = current->next;
             unsorted->prev = current;
 
             if (current->next != NULL)
+	    {
                 current->next->prev = unsorted;
+	    }
 
             current->next = unsorted;
         }
