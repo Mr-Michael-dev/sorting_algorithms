@@ -16,6 +16,11 @@ void insertion_sort_list(listint_t **list)
 	listint_t *sorted = NULL;
 	listint_t *unsorted = *list;
 
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
+	{
+		return;
+	}
+
 	while (unsorted != NULL)
 	{
 		listint_t *next = unsorted->next;
