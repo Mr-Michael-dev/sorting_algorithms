@@ -10,24 +10,15 @@ void insertion_sort_list(listint_t **list);
  * Insertion Sort algorithm. It swaps nodes to rearrange the list in
  * ascending order and prints the list after each swap.
  */
+
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *sorted;
-	listint_t *unsorted;
-	listint_t *current;
-	listint_t *next;
-
-	if (list == NULL || *list == NULL || (*list)->next == NULL)
-	{
-		return;
-	}
-
-	sorted = NULL;
-	unsorted = *list;
+	listint_t *sorted = NULL;
+	listint_t *unsorted = *list;
 
 	while (unsorted != NULL)
 	{
-		next = unsorted->next;
+		listint_t *next = unsorted->next;
 
 		if (sorted == NULL || sorted->n >= unsorted->n)
 		{
@@ -40,10 +31,11 @@ void insertion_sort_list(listint_t **list)
 			}
 
 			sorted = unsorted;
+			print_list(*list);
 		}
 		else
 		{
-			current = sorted;
+			listint_t *current = sorted;
 
 			while (current->next != NULL && current->next->n > unsorted->n)
 			{
@@ -59,11 +51,11 @@ void insertion_sort_list(listint_t **list)
 			}
 
 			current->next = unsorted;
+			print_list(*list);
 		}
-
-		*list = sorted;
-		print_list(*list);
 
 		unsorted = next;
 	}
+
+	*list = sorted;
 }
