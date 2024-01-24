@@ -1,30 +1,69 @@
 #include "sort.h"
 
+size_t partition_array(int array[], size_t lo, size_t hi);
+
 /**
- * quick-sort - sorts an array of integers in ascending order
- * @arrray: array to be sorted
+ * quick_sort - sorts an array of integers in ascending order
+ * @array: array to be sorted
  * @size: size of the array
  *
- * Returns: nothing
+ * Return: nothing
  */
 
 void quick_sort(int *array, size_t size)
 {
-	size_t pivot = size - 1;
-	size_t i, j, temp;
+	size_t pivot;
 
-	for (i = 0; i < size - 1; i++)
+	if (size <= 1 || array == NULL)
 	{
-		for (j = i; j < size - i - 1; j++)
+		return;
+	}
+
+	pivot = partition_array(array, 0, size - 1);
+
+	if (pivot > 0)
+	{
+		quick_sort(array, pivot);
+	}
+
+	if (pivot < size - 1)
+	{
+		quick_sort(array + pivot + 1, size - pivot - 1);
+	}
+}
+
+
+/**
+ * partition_array - splits the array into two base on pivot
+ * @array: array to be partitioned
+ * @lo: the lowest index
+ * @hi: the highest index
+ *
+ * Return: pivot index
+ */
+
+size_t partition_array(int array[], size_t lo, size_t hi)
+{
+	int pivot = array[hi], temp;
+	size_t i = lo - 1;
+	size_t j;
+
+	for (j = lo; j < hi; j++)
+	{
+		if (array[j] <= pivot)
 		{
-			if (array[pivot] < array[pivot - 1])
-			{
-				temp = array[pivot];
-				array[pivot] = array[pivot - 1];
-				array[pivot - 1] = temp;
-				print_array(array, size);
-			}
-			quick_sort(array, size - 1);
+			i++;
+
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+			print_array(array, hi + 1);
 		}
 	}
+
+	temp = array[i + 1];
+	array[i + 1] = array[hi];
+	array[hi] = temp;
+
+	return (i + 1);
 }
