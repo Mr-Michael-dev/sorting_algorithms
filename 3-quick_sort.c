@@ -11,7 +11,7 @@
 void quick_sort(int *array, size_t size)
 {
 	size_t pivot = size - 1;
-	size_t i, j;
+	size_t i, j, temp;
 
 	for (i = 0; i < size - 1; i++)
 	{
