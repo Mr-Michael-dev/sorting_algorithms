@@ -1,6 +1,6 @@
 #include "sort.h"
 
-size_t partition_array(int array[], size_t lo, size_t hi);
+size_t partition_array(int array[], size_t lo, size_t hi, size_t size);
 
 /**
  * quick_sort - sorts an array of integers in ascending order
@@ -14,21 +14,24 @@ void quick_sort(int *array, size_t size)
 {
 	size_t pivot;
 
-	if (size <= 1 || array == NULL)
+	if (size < 2 || array == NULL)
 	{
 		return;
 	}
 
-	pivot = partition_array(array, 0, size - 1);
-
-	if (pivot > 0)
+	if (0  < size - 1)
 	{
-		quick_sort(array, pivot);
-	}
+		pivot = partition_array(array, 0, size - 1, size);
 
-	if (pivot < size - 1)
-	{
-		quick_sort(array + pivot + 1, size - pivot - 1);
+		if (pivot > 0)
+		{
+			quick_sort(array, pivot);
+		}
+
+		if (pivot < size - 1)
+		{
+			quick_sort(array + pivot + 1, size - pivot - 1);
+		}
 	}
 }
 
@@ -42,28 +45,35 @@ void quick_sort(int *array, size_t size)
  * Return: pivot index
  */
 
-size_t partition_array(int array[], size_t lo, size_t hi)
+size_t partition_array(int array[], size_t lo, size_t hi, size_t size)
 {
-	int pivot = array[hi], temp;
+	int pivot = array[hi], temp = 0;
 	size_t i = lo - 1;
 	size_t j;
 
 	for (j = lo; j < hi; j++)
 	{
-		if (array[j] <= pivot)
+		if (array[j] < pivot)
 		{
 			i++;
 
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-			print_array(array, hi + 1);
+			if (array[i] != array[j])
+			{
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+				print_array(array, size);
+			}
 		}
 	}
 
-	temp = array[i + 1];
-	array[i + 1] = array[hi];
-	array[hi] = temp;
+	if (array[i + 1] != array[hi])
+	{
+		temp = array[i + 1];
+		array[i + 1] = array[hi];
+		array[hi] = temp;
+		print_array(array, size);
+	}
 
 	return (i + 1);
 }
