@@ -19,7 +19,7 @@ void quick_sort(int *array, size_t size)
 		return;
 	}
 
-	if (0  < size - 1)
+	if (size - 1 > 0)
 	{
 		pivot = partition_array(array, 0, size - 1, size);
 
@@ -41,6 +41,7 @@ void quick_sort(int *array, size_t size)
  * @array: array to be partitioned
  * @lo: the lowest index
  * @hi: the highest index
+ * @size: size of the array
  *
  * Return: pivot index
  */
